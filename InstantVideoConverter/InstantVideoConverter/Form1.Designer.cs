@@ -34,6 +34,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btn_Stop = new System.Windows.Forms.Button();
+            this.btn_Pause = new System.Windows.Forms.Button();
             this.btn_Preview = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Start = new System.Windows.Forms.Button();
@@ -41,6 +43,9 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioButton_Disable = new System.Windows.Forms.RadioButton();
             this.radioButton_Intel = new System.Windows.Forms.RadioButton();
@@ -62,6 +67,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.listView_Audio = new System.Windows.Forms.ListView();
+            this.Track = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Codec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Bitrate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.radioButton_overwrite = new System.Windows.Forms.RadioButton();
@@ -72,9 +80,9 @@
             this.btn_OutDir = new System.Windows.Forms.Button();
             this.textBox_OutDir = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.Track = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Codec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Bitrate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listView_Tasks = new System.Windows.Forms.ListView();
+            this.backgroundWorker_StartWork = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog_PickVideo = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -82,9 +90,11 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -150,6 +160,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Stop);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Pause);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Preview);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Remove);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Start);
@@ -162,9 +174,27 @@
             this.splitContainer1.SplitterDistance = 110;
             this.splitContainer1.TabIndex = 2;
             // 
+            // btn_Stop
+            // 
+            this.btn_Stop.Location = new System.Drawing.Point(572, 2);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(136, 104);
+            this.btn_Stop.TabIndex = 5;
+            this.btn_Stop.Text = "Stop";
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            // 
+            // btn_Pause
+            // 
+            this.btn_Pause.Location = new System.Drawing.Point(430, 1);
+            this.btn_Pause.Name = "btn_Pause";
+            this.btn_Pause.Size = new System.Drawing.Size(136, 104);
+            this.btn_Pause.TabIndex = 4;
+            this.btn_Pause.Text = "Pause";
+            this.btn_Pause.UseVisualStyleBackColor = true;
+            // 
             // btn_Preview
             // 
-            this.btn_Preview.Location = new System.Drawing.Point(430, 4);
+            this.btn_Preview.Location = new System.Drawing.Point(714, 4);
             this.btn_Preview.Name = "btn_Preview";
             this.btn_Preview.Size = new System.Drawing.Size(136, 104);
             this.btn_Preview.TabIndex = 3;
@@ -173,7 +203,7 @@
             // 
             // btn_Remove
             // 
-            this.btn_Remove.Location = new System.Drawing.Point(288, 4);
+            this.btn_Remove.Location = new System.Drawing.Point(146, 4);
             this.btn_Remove.Name = "btn_Remove";
             this.btn_Remove.Size = new System.Drawing.Size(136, 104);
             this.btn_Remove.TabIndex = 2;
@@ -182,7 +212,7 @@
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(146, 4);
+            this.btn_Start.Location = new System.Drawing.Point(287, 3);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(136, 104);
             this.btn_Start.TabIndex = 1;
@@ -198,6 +228,7 @@
             this.btn_Add.TabIndex = 0;
             this.btn_Add.Text = "Add";
             this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // splitContainer2
             // 
@@ -210,6 +241,10 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.listView_Tasks);
             this.splitContainer2.Size = new System.Drawing.Size(1262, 589);
             this.splitContainer2.SplitterDistance = 425;
             this.splitContainer2.TabIndex = 0;
@@ -228,6 +263,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -238,6 +274,39 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Video";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.radioButton2);
+            this.groupBox7.Controls.Add(this.radioButton1);
+            this.groupBox7.Location = new System.Drawing.Point(8, 482);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(383, 53);
+            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Container Format";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(18, 26);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(65, 21);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "*.mp4";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(134, 26);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(64, 21);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "*.mov";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -583,6 +652,27 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Output Directory";
             // 
+            // listView_Tasks
+            // 
+            this.listView_Tasks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Tasks.Location = new System.Drawing.Point(0, 0);
+            this.listView_Tasks.Name = "listView_Tasks";
+            this.listView_Tasks.Size = new System.Drawing.Size(831, 587);
+            this.listView_Tasks.TabIndex = 0;
+            this.listView_Tasks.UseCompatibleStateImageBehavior = false;
+            this.listView_Tasks.View = System.Windows.Forms.View.Details;
+            // 
+            // backgroundWorker_StartWork
+            // 
+            this.backgroundWorker_StartWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_StartWork_DoWork);
+            // 
+            // openFileDialog_PickVideo
+            // 
+            this.openFileDialog_PickVideo.Filter = "\"MP4 files|*.mp4\"";
+            this.openFileDialog_PickVideo.Multiselect = true;
+            this.openFileDialog_PickVideo.RestoreDirectory = true;
+            this.openFileDialog_PickVideo.Title = "Select your video files";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -602,10 +692,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -678,6 +771,14 @@
         private System.Windows.Forms.ColumnHeader Track;
         private System.Windows.Forms.ColumnHeader Codec;
         private System.Windows.Forms.ColumnHeader Bitrate;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Button btn_Pause;
+        private System.ComponentModel.BackgroundWorker backgroundWorker_StartWork;
+        private System.Windows.Forms.ListView listView_Tasks;
+        private System.Windows.Forms.OpenFileDialog openFileDialog_PickVideo;
     }
 }
 

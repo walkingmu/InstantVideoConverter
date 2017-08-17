@@ -5,5 +5,8 @@
     <Setting Name="ffmpeg" Type="System.String" Scope="User">
       <Value Profile="(Default)">ffmpeg.exe</Value>
     </Setting>
+    <Setting Name="max_tasks" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

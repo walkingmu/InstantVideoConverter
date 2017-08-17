@@ -34,5 +34,17 @@ namespace InstantVideoConverter.Properties {
                 this["ffmpeg"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public uint max_tasks {
+            get {
+                return ((uint)(this["max_tasks"]));
+            }
+            set {
+                this["max_tasks"] = value;
+            }
+        }
     }
 }

@@ -8,10 +8,11 @@ namespace InstantVideoConverter
 {
     interface IConvert
     {
+        Metadata GetMetaData(string filePath);
         void Start(ConversionOption opt);
         void Pause();
         void Stop();
-        int GetProgress();
+        float GetProgress();
         bool IsStarted();
     }
 }

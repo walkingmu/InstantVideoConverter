@@ -8,22 +8,50 @@ namespace InstantVideoConverter
 {
     class VideoConvertTask : ffmpegEngine
     {
-        private string filePath;
         private ConversionOption conversionOption;
-        
-        public VideoConvertTask(string file, ConversionOption option)
+        public VideoConvertTask(int taskID, string file, ConversionOption option)
+            : base(taskID, file)
         {
-            this.filePath = file;
-            conversionOption = option;
+            conversionOption = option; 
         }
 
-        public int Progress
+        public string VideoFilePath
+        {
+            get
+            {
+                return filePath;
+            }
+        }
+        public void Start()
+        {
+            this.Start(conversionOption);
+        }
+        public float Progress
         {
             get
             {
                 return GetProgress();
             }
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            return base.GetHashCode() == (obj.GetHashCode());
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public Metadata VideoMetaData
+        {
+            get
+            {
+                if (metadata == null)
+                    GetMetaData();
+                return metadata;
+            }
+        }
     }
 }
