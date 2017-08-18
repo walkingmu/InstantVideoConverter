@@ -70,8 +70,14 @@ namespace InstantVideoConverter
             GroupCollection matchVideoFormatColorSize = Index[Find.VideoFormatColorSize].Match(fullMetadata).Groups;
             GroupCollection matchVideoFps = Index[Find.VideoFps].Match(fullMetadata).Groups;
             Match matchVideoBitRate = Index[Find.BitRate].Match(fullMetadata);
-
-
+            Match matchDuration = Index[Find.Duration].Match(data);
+            TimeSpan ts;
+            if(matchDuration.Success)
+            {
+                TimeSpan.TryParse(matchDuration.Groups[1].Value, out ts);
+                mData.Duration = ts;
+            }
+                
             mData.VideoData = new Metadata.Video
                 {
                     Format = matchVideoFormatColorSize[1].ToString(),

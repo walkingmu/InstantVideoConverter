@@ -9,12 +9,20 @@ namespace InstantVideoConverter
     class VideoConvertTask : ffmpegEngine
     {
         private ConversionOption conversionOption;
-        public VideoConvertTask(int taskID, string file, ConversionOption option)
+        
+        public VideoConvertTask(int taskID, string file, string outputPath)
             : base(taskID, file)
         {
-            conversionOption = option; 
+            conversionOption = new ConversionOption(GetMetaData(), outputPath);
         }
 
+        public ConversionOption ConversionOption
+        {
+            get
+            {
+                return conversionOption;
+            }
+        }
         public string VideoFilePath
         {
             get
@@ -26,11 +34,13 @@ namespace InstantVideoConverter
         {
             this.Start(conversionOption);
         }
-        public float Progress
+        public string Progress
         {
             get
             {
-                return GetProgress();
+                if (IsCompleted)
+                    return "100%";
+                return string.Format("{0:00.00}%", GetProgress());
             }
         }
 

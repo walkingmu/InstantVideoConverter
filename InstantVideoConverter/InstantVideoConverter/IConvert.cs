@@ -12,7 +12,7 @@ namespace InstantVideoConverter
         void Start(ConversionOption opt);
         void Pause();
         void Stop();
-        float GetProgress();
+        double GetProgress();
         bool IsStarted();
     }
 }

@@ -17,15 +17,25 @@ namespace InstantVideoConverter
         private Thread conversionThread;
         protected string filePath;
         private bool isWorkCompleted;
-        private float progress;
+        private double progress;
         public delegate void ProgressChanged(IConvert sender, ConvertProgressEventArgs args);
         public event ProgressChanged OnProgressChanged;
         public delegate void ConversionCompleted(IConvert sender, ConversionCompleteEventArgs args);
         public event ConversionCompleted OnConversionCompleted;
         protected List<string> receivedMessagesLog = new List<string>();
-        TimeSpan totalMediaDuration = new TimeSpan();
         private Process FFmpegProcess;
         protected Metadata metadata;
+        private DateTime dtStart;
+        private DateTime dtComplete;
+
+        public TimeSpan ConversionTime
+        {
+            get
+            {
+                return dtComplete - dtStart;
+            }
+        }
+
         public ffmpegEngine(int taskid, string filepath)
         {
             taskID = taskid;
@@ -39,43 +49,23 @@ namespace InstantVideoConverter
         {
             string invokeString = "-i " + filePath;
             ProcessStartInfo info = ConvertToProcessStartInfo(invokeString);
-
-            using (FFmpegProcess = new Process())
+            try
             {
-                FFmpegProcess.StartInfo = info;
-                FFmpegProcess.ErrorDataReceived += MetaData_ErrorDataReceived;
-                FFmpegProcess.OutputDataReceived += Metadata_OutputDataReceived;
-                FFmpegProcess.Start();
-                FFmpegProcess.WaitForExit();
+                using (FFmpegProcess = new Process())
+                {
+                    FFmpegProcess.StartInfo = info;
+                    FFmpegProcess.Start();
+                    string data = FFmpegProcess.StandardError.ReadToEnd();
+                    FFmpegProcess.WaitForExit();
+                    metadata = RegexEngine.GetMetaData(data);
+                    FFmpegProcess = null;
+                }
             }
-            Stop();
+            catch (Exception)
+            {
+                Stop();
+            }
             return metadata;
-        }
-
-        private void Metadata_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null) return;
-            try
-            {
-                metadata = RegexEngine.GetMetaData(e.Data);
-            }
-            catch (Exception)
-            {
-                Stop();
-            }
-        }
-
-        private void MetaData_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data == null) return;
-            try
-            {
-                metadata = RegexEngine.GetMetaData(e.Data);
-            }
-            catch (Exception)
-            {
-                Stop();
-            }
         }
 
         public Metadata GetMetaData()
@@ -100,7 +90,7 @@ namespace InstantVideoConverter
         private void ConversionWork(object opt)
         {
             ConversionOption conversionOption = opt as ConversionOption;
-            string invokeString = conversionOption.GetInvokeString();
+            string invokeString = conversionOption.GetInvokeString(filePath);
 
             ProcessStartInfo sInfo = ConvertToProcessStartInfo(invokeString);
             using (FFmpegProcess = Process.Start(sInfo))
@@ -110,36 +100,42 @@ namespace InstantVideoConverter
                     throw new InvalidOperationException("Cannot start ffmpeg executable");
                 }
                 progress = 0.0f;
-                FFmpegProcess.ErrorDataReceived += FFmpegProcess_ErrorDataReceived;
+                while ( !(FFmpegProcess.HasExited && FFmpegProcess.StandardError.EndOfStream))
+                {
+                    string line = FFmpegProcess.StandardError.ReadLine();
+                    FFmpegProcess_Process_Output(line);
+                }
+                isWorkCompleted = true;
+                progress = 100.0f;
             }
-
+            dtComplete = DateTime.Now;
         }
 
-        private void FFmpegProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void FFmpegProcess_Process_Output(string data)
         {
-            if (e.Data == null) return;
+            if (data == null) return;
             try
             {
-                receivedMessagesLog.Insert(0, e.Data);
+                receivedMessagesLog.Insert(0, data);
 
                 ConversionCompleteEventArgs convertCompleteEvent;
                 ConvertProgressEventArgs progressEvent;
 
-                if ((progressEvent = RegexEngine.IsProgressData(e.Data)) != null)
+                if ((progressEvent = RegexEngine.IsProgressData(data)) != null)
                 {
-                    progressEvent.TotalDuration = totalMediaDuration;
-                    
+                    progressEvent.TotalDuration = metadata.Duration;
+                    progress = progressEvent.ProcessedDuration.TotalSeconds / progressEvent.TotalDuration.TotalSeconds * 100.0;
                     OnProgressChanged?.Invoke(this, progressEvent);
                 }
-                else if ((convertCompleteEvent = RegexEngine.IsConvertCompleteData(e.Data)) != null)
+                else if ((convertCompleteEvent = RegexEngine.IsConvertCompleteData(data)) != null)
                 {
-                    convertCompleteEvent.TotalDuration = totalMediaDuration;
+                    convertCompleteEvent.TotalDuration = metadata.Duration;
                     isWorkCompleted = true;
                     progress = 100.0f;
                     OnConversionCompleted?.Invoke(this, convertCompleteEvent);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Stop();
             }
@@ -149,6 +145,7 @@ namespace InstantVideoConverter
         {
             conversionThread = new Thread(ConversionWork);
             conversionThread.Start(opt);
+            dtStart = DateTime.Now;
         }
         public bool IsCompleted
         {
@@ -181,7 +178,7 @@ namespace InstantVideoConverter
             //not supported yet
         }
 
-        public float GetProgress()
+        public double GetProgress()
         {
             return progress;
         }

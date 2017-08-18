@@ -12,13 +12,27 @@ namespace InstantVideoConverter
         Rename, //Rename the conflict file with (1), (2)....
     }
 
-    class ConversionOption
+    class ConversionOption : ICloneable
     {
         VideoOption videoOption;
         AudioOption audioOption;
 
         //the following parameters are general options
         private string outputPath;
+
+        public ConversionOption(Metadata mData, string outputPath)
+        {//This will generate a default Conversion option basically changes nothing
+            videoOption = new VideoOption(mData.VideoData.FrameWidth, mData.VideoData.FrameHeight, 0);
+            audioOption = new AudioOption(AudioOption.VOLUME_NORMAL);
+            this.outputPath = outputPath;
+        }
+        public ConversionOption(ConversionOption conversionOption)
+        {
+            this.videoOption = conversionOption.videoOption.Clone() as VideoOption;
+            this.audioOption = conversionOption.audioOption.Clone() as AudioOption;
+            this.outputPath = conversionOption.outputPath.Clone().ToString();
+            
+        }
 
         public string OutputPath
         {
@@ -55,9 +69,30 @@ namespace InstantVideoConverter
             }
         }
 
-        public string GetInvokeString()
+        public string GetInvokeString(string inputFile)
         {
-            return "";
+            StringBuilder sb = new StringBuilder();
+            /*
+             * Hardware acceleration methods:
+                d3d11va
+                dxva2
+                qsv
+                cuvid
+            */
+            if (this.videoOption.HardwareAcceleration != HardwareAcceleration.Disabled)
+            {
+                //this parameter must before the input file
+                sb.AppendFormat("-hwaccel {0}", this.videoOption.HardwareAcceleration);
+            }
+            sb.AppendFormat(" -i \"{0}\" {1} {2}", inputFile, videoOption.GetInvokeString(), audioOption.GetInvokeString());
+            //Output file
+            sb.AppendFormat(" \"{0}\"", outputPath);
+            return sb.ToString();
+        }
+
+        public object Clone()
+        {
+            return new ConversionOption(this);
         }
     }
 }
