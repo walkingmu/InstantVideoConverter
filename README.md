@@ -1,7 +1,7 @@
 # InstantVideoConverter
 The end goal of this project is to create a hardware accelerated video converter with support up to 4K video. This project will also support embedding Metadata for video taken by spherical cameras.
 
-This program is in active development stage currently. Yijia Xu is the owner of the project and currently developing and maintaining it.
+This open source project is in active development stage currently. Yijia Xu is the owner of the project and currently developing and maintaining it.
 
 The intention of this project is to create a light-weight video conversion software that
   - Hide all technical details for video conversion and convert a video with a simple click.
