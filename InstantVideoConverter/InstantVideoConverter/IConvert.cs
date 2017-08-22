@@ -11,6 +11,7 @@ namespace InstantVideoConverter
         Metadata GetMetaData(string filePath);
         void Start(ConversionOption opt);
         void Pause();
+        void Resume();
         void Stop();
         double GetProgress();
         bool IsStarted();

@@ -37,35 +37,35 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
-            this.btn_Preview = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radioButton_overwrite = new System.Windows.Forms.RadioButton();
+            this.radioButton_rename = new System.Windows.Forms.RadioButton();
+            this.btn_OutDir = new System.Windows.Forms.Button();
+            this.textBox_OutDir = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.radioButton_mp4 = new System.Windows.Forms.RadioButton();
             this.radioButton_mov = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton_DirectX = new System.Windows.Forms.RadioButton();
             this.radioButton_Disable = new System.Windows.Forms.RadioButton();
             this.radioButton_Intel = new System.Windows.Forms.RadioButton();
             this.radioButton_CUDA = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox_Panorama = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_video = new System.Windows.Forms.GroupBox();
             this.checkBox_fixed = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_height = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_width = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown_Rotate = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.listView_Audio = new System.Windows.Forms.ListView();
@@ -73,15 +73,9 @@
             this.Codec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Bitrate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButton_overwrite = new System.Windows.Forms.RadioButton();
-            this.radioButton_rename = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDown_MaxTasks = new System.Windows.Forms.NumericUpDown();
-            this.btn_OutDir = new System.Windows.Forms.Button();
-            this.textBox_OutDir = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.listView_Tasks = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -102,17 +96,16 @@
             this.splitContainer2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rotate)).BeginInit();
+            this.groupBox_Panorama.SuspendLayout();
+            this.groupBox_video.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_height)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_width)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxTasks)).BeginInit();
             this.SuspendLayout();
@@ -173,7 +166,6 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.btn_Stop);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Pause);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_Preview);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Remove);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Start);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Add);
@@ -187,6 +179,7 @@
             // 
             // btn_Stop
             // 
+            this.btn_Stop.Enabled = false;
             this.btn_Stop.Location = new System.Drawing.Point(572, 2);
             this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Stop.Name = "btn_Stop";
@@ -194,45 +187,40 @@
             this.btn_Stop.TabIndex = 5;
             this.btn_Stop.Text = "Stop";
             this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // btn_Pause
             // 
-            this.btn_Pause.Location = new System.Drawing.Point(429, 1);
+            this.btn_Pause.Enabled = false;
+            this.btn_Pause.Location = new System.Drawing.Point(429, 2);
             this.btn_Pause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Pause.Name = "btn_Pause";
             this.btn_Pause.Size = new System.Drawing.Size(136, 103);
             this.btn_Pause.TabIndex = 4;
             this.btn_Pause.Text = "Pause";
             this.btn_Pause.UseVisualStyleBackColor = true;
-            // 
-            // btn_Preview
-            // 
-            this.btn_Preview.Location = new System.Drawing.Point(715, 4);
-            this.btn_Preview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_Preview.Name = "btn_Preview";
-            this.btn_Preview.Size = new System.Drawing.Size(136, 103);
-            this.btn_Preview.TabIndex = 3;
-            this.btn_Preview.Text = "Preview";
-            this.btn_Preview.UseVisualStyleBackColor = true;
+            this.btn_Pause.Click += new System.EventHandler(this.btn_Pause_Click);
             // 
             // btn_Remove
             // 
-            this.btn_Remove.Location = new System.Drawing.Point(147, 4);
+            this.btn_Remove.Location = new System.Drawing.Point(147, 2);
             this.btn_Remove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Remove.Name = "btn_Remove";
             this.btn_Remove.Size = new System.Drawing.Size(136, 103);
             this.btn_Remove.TabIndex = 2;
-            this.btn_Remove.Text = "Remove";
+            this.btn_Remove.Text = "Remove Video";
             this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // btn_Start
             // 
+            this.btn_Start.Enabled = false;
             this.btn_Start.Location = new System.Drawing.Point(287, 2);
             this.btn_Start.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(136, 103);
             this.btn_Start.TabIndex = 1;
-            this.btn_Start.Text = "Start";
+            this.btn_Start.Text = "Start Conversion";
             this.btn_Start.UseVisualStyleBackColor = true;
             this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
             // 
@@ -243,7 +231,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(136, 103);
             this.btn_Add.TabIndex = 0;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "Add Video";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -264,7 +252,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.listView_Tasks);
             this.splitContainer2.Size = new System.Drawing.Size(1261, 627);
-            this.splitContainer2.SplitterDistance = 425;
+            this.splitContainer2.SplitterDistance = 601;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabControl1
@@ -277,33 +265,106 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(423, 625);
+            this.tabControl1.Size = new System.Drawing.Size(599, 625);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox5);
+            this.tabPage1.Controls.Add(this.btn_OutDir);
+            this.tabPage1.Controls.Add(this.textBox_OutDir);
+            this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.groupBox_Panorama);
+            this.tabPage1.Controls.Add(this.groupBox_video);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(415, 596);
+            this.tabPage1.Size = new System.Drawing.Size(591, 596);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Video";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.radioButton_overwrite);
+            this.groupBox5.Controls.Add(this.radioButton_rename);
+            this.groupBox5.Location = new System.Drawing.Point(12, 346);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox5.Size = new System.Drawing.Size(317, 117);
+            this.groupBox5.TabIndex = 8;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "If File With Same Name Already Exists";
+            // 
+            // radioButton_overwrite
+            // 
+            this.radioButton_overwrite.AutoSize = true;
+            this.radioButton_overwrite.Checked = true;
+            this.radioButton_overwrite.Location = new System.Drawing.Point(9, 62);
+            this.radioButton_overwrite.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_overwrite.Name = "radioButton_overwrite";
+            this.radioButton_overwrite.Size = new System.Drawing.Size(186, 21);
+            this.radioButton_overwrite.TabIndex = 1;
+            this.radioButton_overwrite.TabStop = true;
+            this.radioButton_overwrite.Text = "Overwrite the existing file";
+            this.radioButton_overwrite.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_rename
+            // 
+            this.radioButton_rename.AutoSize = true;
+            this.radioButton_rename.Location = new System.Drawing.Point(9, 34);
+            this.radioButton_rename.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_rename.Name = "radioButton_rename";
+            this.radioButton_rename.Size = new System.Drawing.Size(172, 21);
+            this.radioButton_rename.TabIndex = 0;
+            this.radioButton_rename.Text = "Rename the output file";
+            this.radioButton_rename.UseVisualStyleBackColor = true;
+            // 
+            // btn_OutDir
+            // 
+            this.btn_OutDir.Location = new System.Drawing.Point(123, 269);
+            this.btn_OutDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_OutDir.Name = "btn_OutDir";
+            this.btn_OutDir.Size = new System.Drawing.Size(111, 30);
+            this.btn_OutDir.TabIndex = 7;
+            this.btn_OutDir.Text = "Change";
+            this.btn_OutDir.UseVisualStyleBackColor = true;
+            // 
+            // textBox_OutDir
+            // 
+            this.textBox_OutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_OutDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::InstantVideoConverter.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox_OutDir.Location = new System.Drawing.Point(8, 308);
+            this.textBox_OutDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_OutDir.Name = "textBox_OutDir";
+            this.textBox_OutDir.ReadOnly = true;
+            this.textBox_OutDir.Size = new System.Drawing.Size(570, 22);
+            this.textBox_OutDir.TabIndex = 6;
+            this.textBox_OutDir.Text = global::InstantVideoConverter.Properties.Settings.Default.OutputPath;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 276);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 17);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Output Directory";
             // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.radioButton_mp4);
             this.groupBox7.Controls.Add(this.radioButton_mov);
-            this.groupBox7.Location = new System.Drawing.Point(8, 482);
+            this.groupBox7.Location = new System.Drawing.Point(8, 200);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox7.Size = new System.Drawing.Size(383, 53);
+            this.groupBox7.Size = new System.Drawing.Size(220, 53);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Container Format";
@@ -336,40 +397,26 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.radioButton_DirectX);
             this.groupBox3.Controls.Add(this.radioButton_Disable);
             this.groupBox3.Controls.Add(this.radioButton_Intel);
             this.groupBox3.Controls.Add(this.radioButton_CUDA);
-            this.groupBox3.Location = new System.Drawing.Point(8, 362);
+            this.groupBox3.Location = new System.Drawing.Point(240, 179);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(383, 114);
+            this.groupBox3.Size = new System.Drawing.Size(197, 114);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hardware Acceleration";
             // 
-            // radioButton_DirectX
-            // 
-            this.radioButton_DirectX.AutoSize = true;
-            this.radioButton_DirectX.Location = new System.Drawing.Point(206, 37);
-            this.radioButton_DirectX.Name = "radioButton_DirectX";
-            this.radioButton_DirectX.Size = new System.Drawing.Size(140, 21);
-            this.radioButton_DirectX.TabIndex = 3;
-            this.radioButton_DirectX.TabStop = true;
-            this.radioButton_DirectX.Text = "Microsoft Direct X";
-            this.radioButton_DirectX.UseVisualStyleBackColor = true;
-            // 
             // radioButton_Disable
             // 
             this.radioButton_Disable.AutoSize = true;
-            this.radioButton_Disable.Checked = true;
-            this.radioButton_Disable.Location = new System.Drawing.Point(206, 62);
+            this.radioButton_Disable.Location = new System.Drawing.Point(15, 78);
             this.radioButton_Disable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_Disable.Name = "radioButton_Disable";
             this.radioButton_Disable.Size = new System.Drawing.Size(162, 21);
             this.radioButton_Disable.TabIndex = 2;
-            this.radioButton_Disable.TabStop = true;
             this.radioButton_Disable.Text = "Disable ( Uses CPU )";
             this.radioButton_Disable.UseVisualStyleBackColor = true;
             this.radioButton_Disable.CheckedChanged += new System.EventHandler(this.radioButton_Disable_CheckedChanged);
@@ -377,11 +424,13 @@
             // radioButton_Intel
             // 
             this.radioButton_Intel.AutoSize = true;
-            this.radioButton_Intel.Location = new System.Drawing.Point(25, 62);
+            this.radioButton_Intel.Checked = true;
+            this.radioButton_Intel.Location = new System.Drawing.Point(15, 53);
             this.radioButton_Intel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_Intel.Name = "radioButton_Intel";
             this.radioButton_Intel.Size = new System.Drawing.Size(172, 21);
             this.radioButton_Intel.TabIndex = 1;
+            this.radioButton_Intel.TabStop = true;
             this.radioButton_Intel.Text = "Intel QSV (Media SDK)";
             this.radioButton_Intel.UseVisualStyleBackColor = true;
             this.radioButton_Intel.CheckedChanged += new System.EventHandler(this.radioButton_Disable_CheckedChanged);
@@ -389,7 +438,7 @@
             // radioButton_CUDA
             // 
             this.radioButton_CUDA.AutoSize = true;
-            this.radioButton_CUDA.Location = new System.Drawing.Point(24, 37);
+            this.radioButton_CUDA.Location = new System.Drawing.Point(15, 28);
             this.radioButton_CUDA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_CUDA.Name = "radioButton_CUDA";
             this.radioButton_CUDA.Size = new System.Drawing.Size(113, 21);
@@ -398,79 +447,70 @@
             this.radioButton_CUDA.UseVisualStyleBackColor = true;
             this.radioButton_CUDA.CheckedChanged += new System.EventHandler(this.radioButton_Disable_CheckedChanged);
             // 
-            // groupBox2
+            // groupBox_Panorama
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox_Panorama.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(8, 224);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(383, 132);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Panorama MetaData";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(72, 84);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(231, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Generate a template";
-            this.button1.UseVisualStyleBackColor = true;
+            this.groupBox_Panorama.Controls.Add(this.comboBox1);
+            this.groupBox_Panorama.Controls.Add(this.label6);
+            this.groupBox_Panorama.Location = new System.Drawing.Point(316, 34);
+            this.groupBox_Panorama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox_Panorama.Name = "groupBox_Panorama";
+            this.groupBox_Panorama.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox_Panorama.Size = new System.Drawing.Size(269, 128);
+            this.groupBox_Panorama.TabIndex = 1;
+            this.groupBox_Panorama.TabStop = false;
+            this.groupBox_Panorama.Text = "Panorama MetaData";
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(53, 54);
+            this.comboBox1.Items.AddRange(new object[] {
+            "None",
+            "Youtube Spherical Video",
+            "Youtube Top-Buttom 3D",
+            "Youtube Left-Right 3D"});
+            this.comboBox1.Location = new System.Drawing.Point(19, 53);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(280, 24);
+            this.comboBox1.Size = new System.Drawing.Size(243, 24);
             this.comboBox1.TabIndex = 1;
-            this.comboBox1.Text = "None";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 34);
+            this.label6.Location = new System.Drawing.Point(17, 34);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 17);
             this.label6.TabIndex = 0;
             this.label6.Text = "Template";
             // 
-            // groupBox1
+            // groupBox_video
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox_video.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.checkBox_fixed);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.numericUpDown_Rotate);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(8, 25);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(383, 194);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Adjust Your Video";
+            this.groupBox_video.Controls.Add(this.checkBox_fixed);
+            this.groupBox_video.Controls.Add(this.label5);
+            this.groupBox_video.Controls.Add(this.numericUpDown_height);
+            this.groupBox_video.Controls.Add(this.label4);
+            this.groupBox_video.Controls.Add(this.numericUpDown_width);
+            this.groupBox_video.Controls.Add(this.label3);
+            this.groupBox_video.Location = new System.Drawing.Point(8, 25);
+            this.groupBox_video.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox_video.Name = "groupBox_video";
+            this.groupBox_video.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox_video.Size = new System.Drawing.Size(302, 137);
+            this.groupBox_video.TabIndex = 0;
+            this.groupBox_video.TabStop = false;
+            this.groupBox_video.Text = "Adjust Your Video";
             // 
             // checkBox_fixed
             // 
             this.checkBox_fixed.AutoSize = true;
             this.checkBox_fixed.Checked = true;
             this.checkBox_fixed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_fixed.Location = new System.Drawing.Point(69, 146);
+            this.checkBox_fixed.Location = new System.Drawing.Point(43, 102);
             this.checkBox_fixed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_fixed.Name = "checkBox_fixed";
             this.checkBox_fixed.Size = new System.Drawing.Size(123, 21);
@@ -481,71 +521,77 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(252, 111);
+            this.label5.Location = new System.Drawing.Point(226, 67);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 17);
             this.label5.TabIndex = 8;
             this.label5.Text = "pixels";
             // 
-            // numericUpDown2
+            // numericUpDown_height
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(175, 106);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(71, 22);
-            this.numericUpDown2.TabIndex = 7;
+            this.numericUpDown_height.Enabled = false;
+            this.numericUpDown_height.Location = new System.Drawing.Point(149, 62);
+            this.numericUpDown_height.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown_height.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericUpDown_height.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_height.Name = "numericUpDown_height";
+            this.numericUpDown_height.Size = new System.Drawing.Size(71, 22);
+            this.numericUpDown_height.TabIndex = 7;
+            this.numericUpDown_height.Value = new decimal(new int[] {
+            1080,
+            0,
+            0,
+            0});
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(155, 108);
+            this.label4.Location = new System.Drawing.Point(129, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 17);
             this.label4.TabIndex = 6;
             this.label4.Text = "x";
             // 
-            // numericUpDown1
+            // numericUpDown_width
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(69, 106);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(80, 22);
-            this.numericUpDown1.TabIndex = 5;
+            this.numericUpDown_width.Enabled = false;
+            this.numericUpDown_width.Location = new System.Drawing.Point(43, 62);
+            this.numericUpDown_width.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown_width.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericUpDown_width.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_width.Name = "numericUpDown_width";
+            this.numericUpDown_width.Size = new System.Drawing.Size(80, 22);
+            this.numericUpDown_width.TabIndex = 5;
+            this.numericUpDown_width.Value = new decimal(new int[] {
+            1920,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(67, 75);
+            this.label3.Location = new System.Drawing.Point(41, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(156, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Resize (Width x Height)";
-            // 
-            // numericUpDown_Rotate
-            // 
-            this.numericUpDown_Rotate.Location = new System.Drawing.Point(117, 34);
-            this.numericUpDown_Rotate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.numericUpDown_Rotate.Name = "numericUpDown_Rotate";
-            this.numericUpDown_Rotate.Size = new System.Drawing.Size(79, 22);
-            this.numericUpDown_Rotate.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "degree";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Rotate";
             // 
             // tabPage2
             // 
@@ -554,7 +600,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(415, 596);
+            this.tabPage2.Size = new System.Drawing.Size(591, 596);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Audio";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -568,80 +614,38 @@
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox6.Size = new System.Drawing.Size(403, 274);
+            this.groupBox6.Size = new System.Drawing.Size(579, 274);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Audio Channels Found";
             // 
             // listView_Audio
             // 
-            this.listView_Audio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView_Audio.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Track,
             this.Codec,
             this.Bitrate});
+            this.listView_Audio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_Audio.FullRowSelect = true;
-            this.listView_Audio.Location = new System.Drawing.Point(5, 21);
+            this.listView_Audio.Location = new System.Drawing.Point(3, 17);
             this.listView_Audio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listView_Audio.Name = "listView_Audio";
-            this.listView_Audio.Size = new System.Drawing.Size(383, 248);
+            this.listView_Audio.Size = new System.Drawing.Size(573, 255);
             this.listView_Audio.TabIndex = 0;
             this.listView_Audio.UseCompatibleStateImageBehavior = false;
             this.listView_Audio.View = System.Windows.Forms.View.List;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox4);
-            this.tabPage3.Controls.Add(this.btn_OutDir);
-            this.tabPage3.Controls.Add(this.textBox_OutDir);
-            this.tabPage3.Controls.Add(this.label7);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(415, 596);
+            this.tabPage3.Size = new System.Drawing.Size(591, 596);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Output & Format";
+            this.tabPage3.Text = "Other Settings";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.radioButton_overwrite);
-            this.groupBox5.Controls.Add(this.radioButton_rename);
-            this.groupBox5.Location = new System.Drawing.Point(8, 89);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(317, 117);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "If File With Same Name Already Exists";
-            // 
-            // radioButton_overwrite
-            // 
-            this.radioButton_overwrite.AutoSize = true;
-            this.radioButton_overwrite.Location = new System.Drawing.Point(9, 62);
-            this.radioButton_overwrite.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_overwrite.Name = "radioButton_overwrite";
-            this.radioButton_overwrite.Size = new System.Drawing.Size(186, 21);
-            this.radioButton_overwrite.TabIndex = 1;
-            this.radioButton_overwrite.Text = "Overwrite the existing file";
-            this.radioButton_overwrite.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_rename
-            // 
-            this.radioButton_rename.AutoSize = true;
-            this.radioButton_rename.Checked = true;
-            this.radioButton_rename.Location = new System.Drawing.Point(9, 34);
-            this.radioButton_rename.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.radioButton_rename.Name = "radioButton_rename";
-            this.radioButton_rename.Size = new System.Drawing.Size(172, 21);
-            this.radioButton_rename.TabIndex = 0;
-            this.radioButton_rename.TabStop = true;
-            this.radioButton_rename.Text = "Rename the output file";
-            this.radioButton_rename.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -649,11 +653,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.numericUpDown_MaxTasks);
-            this.groupBox4.Location = new System.Drawing.Point(8, 212);
+            this.groupBox4.Location = new System.Drawing.Point(9, 20);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox4.Size = new System.Drawing.Size(400, 87);
+            this.groupBox4.Size = new System.Drawing.Size(576, 87);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Multi Tasks";
@@ -690,38 +694,6 @@
             0,
             0});
             // 
-            // btn_OutDir
-            // 
-            this.btn_OutDir.Location = new System.Drawing.Point(125, 26);
-            this.btn_OutDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_OutDir.Name = "btn_OutDir";
-            this.btn_OutDir.Size = new System.Drawing.Size(108, 30);
-            this.btn_OutDir.TabIndex = 2;
-            this.btn_OutDir.Text = "Change Dir";
-            this.btn_OutDir.UseVisualStyleBackColor = true;
-            // 
-            // textBox_OutDir
-            // 
-            this.textBox_OutDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_OutDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::InstantVideoConverter.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox_OutDir.Location = new System.Drawing.Point(11, 62);
-            this.textBox_OutDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_OutDir.Name = "textBox_OutDir";
-            this.textBox_OutDir.ReadOnly = true;
-            this.textBox_OutDir.Size = new System.Drawing.Size(402, 22);
-            this.textBox_OutDir.TabIndex = 1;
-            this.textBox_OutDir.Text = global::InstantVideoConverter.Properties.Settings.Default.OutputPath;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 26);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 17);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Output Directory";
-            // 
             // listView_Tasks
             // 
             this.listView_Tasks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -731,13 +703,17 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listView_Tasks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Tasks.FullRowSelect = true;
+            this.listView_Tasks.HideSelection = false;
             this.listView_Tasks.Location = new System.Drawing.Point(0, 0);
             this.listView_Tasks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listView_Tasks.MultiSelect = false;
             this.listView_Tasks.Name = "listView_Tasks";
-            this.listView_Tasks.Size = new System.Drawing.Size(830, 625);
+            this.listView_Tasks.Size = new System.Drawing.Size(654, 625);
             this.listView_Tasks.TabIndex = 0;
             this.listView_Tasks.UseCompatibleStateImageBehavior = false;
             this.listView_Tasks.View = System.Windows.Forms.View.Details;
+            this.listView_Tasks.SelectedIndexChanged += new System.EventHandler(this.listView_Tasks_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -808,23 +784,22 @@
             this.splitContainer2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rotate)).EndInit();
+            this.groupBox_Panorama.ResumeLayout(false);
+            this.groupBox_Panorama.PerformLayout();
+            this.groupBox_video.ResumeLayout(false);
+            this.groupBox_video.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_height)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_width)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxTasks)).EndInit();
@@ -844,23 +819,18 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown_Rotate;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox_video;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_height;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_width;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox_Panorama;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBox_fixed;
-        private System.Windows.Forms.Button btn_Preview;
         private System.Windows.Forms.Button btn_Remove;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_Add;
@@ -868,13 +838,7 @@
         private System.Windows.Forms.RadioButton radioButton_Disable;
         private System.Windows.Forms.RadioButton radioButton_Intel;
         private System.Windows.Forms.RadioButton radioButton_CUDA;
-        private System.Windows.Forms.TextBox textBox_OutDir;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btn_OutDir;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton radioButton_overwrite;
-        private System.Windows.Forms.RadioButton radioButton_rename;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDown_MaxTasks;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -896,7 +860,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Timer timer_Progress;
-        private System.Windows.Forms.RadioButton radioButton_DirectX;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton radioButton_overwrite;
+        private System.Windows.Forms.RadioButton radioButton_rename;
+        private System.Windows.Forms.Button btn_OutDir;
+        private System.Windows.Forms.TextBox textBox_OutDir;
+        private System.Windows.Forms.Label label7;
     }
 }
 

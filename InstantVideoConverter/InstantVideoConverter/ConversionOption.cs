@@ -16,6 +16,7 @@ namespace InstantVideoConverter
     {
         VideoOption videoOption;
         AudioOption audioOption;
+        public OverwriteOption ConflictFileOption { get; set;}
 
         //the following parameters are general options
         private string outputPath;
@@ -25,6 +26,7 @@ namespace InstantVideoConverter
             videoOption = new VideoOption(mData.VideoData.FrameWidth, mData.VideoData.FrameHeight, 0);
             audioOption = new AudioOption(AudioOption.VOLUME_NORMAL);
             this.outputPath = outputPath;
+            ConflictFileOption = OverwriteOption.OverWrite;
         }
         public ConversionOption(ConversionOption conversionOption)
         {
@@ -85,6 +87,15 @@ namespace InstantVideoConverter
                 sb.AppendFormat("-hwaccel {0}", this.videoOption.HardwareAcceleration);
             }
             sb.AppendFormat(" -i \"{0}\" {1} {2}", inputFile, videoOption.GetInvokeString(), audioOption.GetInvokeString());
+
+            if (this.videoOption.HardwareAcceleration == HardwareAcceleration.qsv)
+            {
+                sb.AppendFormat(" -c:v h264_qsv");
+            }
+            else if (this.videoOption.HardwareAcceleration == HardwareAcceleration.cuvid)
+            {
+                sb.AppendFormat(" -c:v h264_nvenc");
+            }
             //Output file
             sb.AppendFormat(" \"{0}\"", outputPath);
             return sb.ToString();

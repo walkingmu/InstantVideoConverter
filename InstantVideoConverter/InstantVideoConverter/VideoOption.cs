@@ -98,7 +98,7 @@ namespace InstantVideoConverter
             if(rotation != 0)
                 sb.AppendFormat(" -transpose clock");
             
-
+            
             return sb.ToString();
         }
         public object Clone()

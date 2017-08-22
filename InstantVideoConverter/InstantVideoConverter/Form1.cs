@@ -18,27 +18,36 @@ namespace InstantVideoConverter
         {
             InitializeComponent();
         }
+        ConversionState currentState = ConversionState.Queued;
         List<VideoConvertTask> Tasks = new List<VideoConvertTask>(128);
         private delegate void UpdateListItem(ListViewItem lvi);
         uint CurrentThreadInProgress = 0;
+        
+        private void StartTasks()
+        {
+            CurrentThreadInProgress = 0;
+            uint maxThread = Properties.Settings.Default.max_tasks;
+            foreach (VideoConvertTask t in Tasks)
+            {
+                t.OnConversionCompleted += T_OnConversionCompleted;
+                if (CurrentThreadInProgress < maxThread)
+                {
+                    if (!t.IsCompleted)
+                    {
+                        t.Start();
+                        CurrentThreadInProgress++;
+                    }
+                }
+            }
+        }
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
             //Update all settings before conversion
             UpdateHardwareAcceleration();
 
-
-            CurrentThreadInProgress = 0;
-            uint maxThread = Properties.Settings.Default.max_tasks;
-            foreach (VideoConvertTask t in Tasks)
-            {
-                t.OnProgressChanged += T_OnProgressChanged;
-                if(CurrentThreadInProgress < maxThread)
-                {
-                    t.Start();
-                    CurrentThreadInProgress++;
-                }
-            }
+            StartTasks();
+            currentState = ConversionState.Started;
         }
 
         private ListViewItem TaskToLVI(VideoConvertTask t)
@@ -83,9 +92,23 @@ namespace InstantVideoConverter
             }
             
         }
-        private void T_OnProgressChanged(IConvert sender, ConvertProgressEventArgs args)
-        {
 
+        private void Setting2ConversionOption()
+        {
+            
+        }
+
+        private void ConversionOption2Setting(ConversionOption opt)
+        {
+            this.numericUpDown_width.Value = opt.VideoOption.Width;
+            this.numericUpDown_height.Value = opt.VideoOption.Height;
+
+        }
+        private void T_OnConversionCompleted(IConvert sender, ConversionCompleteEventArgs args)
+        {
+            if(CurrentThreadInProgress > 0)
+                CurrentThreadInProgress--;
+            StartTasks();
         }
 
         private void backgroundWorker_StartWork_DoWork(object sender, DoWorkEventArgs e)
@@ -126,6 +149,32 @@ namespace InstantVideoConverter
             }
         }
 
+        private void RefreshButtomState()
+        {
+            if(listView_Tasks.Items.Count > 0)
+            {
+                this.btn_Remove.Enabled = true;
+                this.btn_Start.Enabled = true;
+            }
+
+            if(currentState == ConversionState.Queued || currentState == ConversionState.Completed)
+            {
+                this.btn_Add.Enabled = true;
+                
+            }else if(currentState == ConversionState.Started)
+            {
+                this.btn_Pause.Enabled = true;
+                this.btn_Stop.Enabled = true;
+                this.btn_Add.Enabled = false;
+                this.btn_Remove.Enabled = false;
+            }else if(currentState == ConversionState.Paused)
+            {
+                this.btn_Pause.Enabled = true;
+                this.btn_Stop.Enabled = true;
+                this.btn_Add.Enabled = false;
+                this.btn_Remove.Enabled = false;
+            }
+        }
         private void backgroundWorker_AddTask_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             foreach(VideoConvertTask vt in Tasks)
@@ -165,9 +214,6 @@ namespace InstantVideoConverter
             else if (radioButton_CUDA.Checked)
             {
                 ac = HardwareAcceleration.cuvid;
-            }else if(radioButton_DirectX.Checked)
-            {
-                ac = HardwareAcceleration.dxva2;
             }
             else
             {
@@ -181,6 +227,60 @@ namespace InstantVideoConverter
         private void radioButton_Disable_CheckedChanged(object sender, EventArgs e)
         {
             UpdateHardwareAcceleration();
+        }
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            foreach(VideoConvertTask vt in Tasks)
+            {
+                if(vt.IsStarted())
+                {
+                    vt.Stop();
+                }
+                currentState = ConversionState.Completed;
+            }
+        }
+
+        private void btn_Pause_Click(object sender, EventArgs e)
+        {
+            if(this.currentState != ConversionState.Paused)
+            {
+                foreach (VideoConvertTask vt in Tasks)
+                {
+                    if (vt.IsStarted() && !vt.IsPaused)
+                    {
+                        vt.Pause();
+                    }
+                }
+                currentState = ConversionState.Paused;
+                this.btn_Pause.Text = "Resume";
+            }else
+            {
+                foreach (VideoConvertTask vt in Tasks)
+                {
+                    if ( vt.IsPaused)
+                    {
+                        vt.Resume();
+                    }
+                }
+                currentState = ConversionState.Paused;
+                this.btn_Pause.Text = "Pause";
+            }
+            RefreshButtomState();
+        }
+
+        private void btn_Remove_Click(object sender, EventArgs e)
+        {
+            RefreshButtomState();
+        }
+
+        private void listView_Tasks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(this.listView_Tasks.SelectedItems !=null && this.listView_Tasks.SelectedItems.Count > 0)
+            {
+                VideoConvertTask vt = listView_Tasks.SelectedItems[0].Tag as VideoConvertTask;
+                this.ConversionOption2Setting(vt.ConversionOption);
+            }
         }
     }
 }

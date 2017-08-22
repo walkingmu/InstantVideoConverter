@@ -22,12 +22,20 @@ namespace InstantVideoConverter
         public event ProgressChanged OnProgressChanged;
         public delegate void ConversionCompleted(IConvert sender, ConversionCompleteEventArgs args);
         public event ConversionCompleted OnConversionCompleted;
-        protected List<string> receivedMessagesLog = new List<string>();
+        protected StringBuilder receivedMessagesLog = new StringBuilder(4098);
         private Process FFmpegProcess;
         protected Metadata metadata;
         private DateTime dtStart;
         private DateTime dtComplete;
+        private bool isPaused;
 
+        public bool IsPaused
+        {
+            get
+            {
+                return isPaused;
+            }
+        }
         public TimeSpan ConversionTime
         {
             get
@@ -43,6 +51,7 @@ namespace InstantVideoConverter
             isWorkCompleted = false;
             FFmpegProcess = null;
             progress = 1.0f;
+            isPaused = false;
         }
 
         public Metadata GetMetaData(string filePath)
@@ -92,31 +101,65 @@ namespace InstantVideoConverter
             ConversionOption conversionOption = opt as ConversionOption;
             string invokeString = conversionOption.GetInvokeString(filePath);
 
-            ProcessStartInfo sInfo = ConvertToProcessStartInfo(invokeString);
-            using (FFmpegProcess = Process.Start(sInfo))
+            if(File.Exists(conversionOption.OutputPath))
             {
-                if (FFmpegProcess == null)
+                if(conversionOption.ConflictFileOption == OverwriteOption.OverWrite)
                 {
-                    throw new InvalidOperationException("Cannot start ffmpeg executable");
+                    File.Delete(conversionOption.OutputPath);
                 }
-                progress = 0.0f;
-                while ( !(FFmpegProcess.HasExited && FFmpegProcess.StandardError.EndOfStream))
-                {
-                    string line = FFmpegProcess.StandardError.ReadLine();
-                    FFmpegProcess_Process_Output(line);
-                }
-                isWorkCompleted = true;
-                progress = 100.0f;
             }
-            dtComplete = DateTime.Now;
-        }
 
+            int retry = 0;
+            bool bRetry = false;
+            do
+            {
+                bRetry = false;
+                ProcessStartInfo sInfo = ConvertToProcessStartInfo(invokeString);
+                using (FFmpegProcess = Process.Start(sInfo))
+                {
+                    if (FFmpegProcess == null)
+                    {
+                        throw new InvalidOperationException("Cannot start ffmpeg executable");
+                    }
+                    progress = 0.0f;
+                    while (!(FFmpegProcess.HasExited && FFmpegProcess.StandardError.EndOfStream))
+                    {
+                        string line = FFmpegProcess.StandardError.ReadLine();
+                        if(line != null && line.Contains("Video encoding failed"))
+                        {
+                            bRetry = true;
+                            retry++;
+                            //delete corrupted
+                            File.Delete(conversionOption.OutputPath);
+                        }
+                        FFmpegProcess_Process_Output(line);
+                    }
+
+                    if(retry > 5)
+                    {
+                        break;
+                    }
+                }
+            } while (bRetry);
+            isWorkCompleted = true;
+            progress = 100.0f;
+            dtComplete = DateTime.Now;
+            ConversionCompleteEventArgs convertCompleteEvent = new ConversionCompleteEventArgs(new TimeSpan(), new TimeSpan(),0,0.0,0,0.0);
+            OnConversionCompleted?.Invoke(this, convertCompleteEvent);
+
+            PrintDebug();
+        }
+        [Conditional("DEBUG")]
+        private void PrintDebug()
+        {
+            System.Diagnostics.Debug.WriteLine(this.receivedMessagesLog);
+        }
         private void FFmpegProcess_Process_Output(string data)
         {
             if (data == null) return;
             try
             {
-                receivedMessagesLog.Insert(0, data);
+                receivedMessagesLog.AppendLine(data);
 
                 ConversionCompleteEventArgs convertCompleteEvent;
                 ConvertProgressEventArgs progressEvent;
@@ -126,13 +169,6 @@ namespace InstantVideoConverter
                     progressEvent.TotalDuration = metadata.Duration;
                     progress = progressEvent.ProcessedDuration.TotalSeconds / progressEvent.TotalDuration.TotalSeconds * 100.0;
                     OnProgressChanged?.Invoke(this, progressEvent);
-                }
-                else if ((convertCompleteEvent = RegexEngine.IsConvertCompleteData(data)) != null)
-                {
-                    convertCompleteEvent.TotalDuration = metadata.Duration;
-                    isWorkCompleted = true;
-                    progress = 100.0f;
-                    OnConversionCompleted?.Invoke(this, convertCompleteEvent);
                 }
             }
             catch (Exception ex)
@@ -175,9 +211,21 @@ namespace InstantVideoConverter
         }
         public void Pause()
         {
-            //not supported yet
+            if(FFmpegProcess != null && !FFmpegProcess.HasExited)
+            {
+                ProcessExtensions.Suspend(FFmpegProcess);
+                isPaused = true;
+            }    
         }
 
+        public void Resume()
+        {
+            if (FFmpegProcess != null && !FFmpegProcess.HasExited && isPaused)
+            {
+                ProcessExtensions.Resume(FFmpegProcess);
+                isPaused = false;
+            }
+        }
         public double GetProgress()
         {
             return progress;
