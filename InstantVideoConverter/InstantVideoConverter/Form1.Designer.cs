@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +86,16 @@
             this.backgroundWorker_AddTask = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog_PickVideo = new System.Windows.Forms.OpenFileDialog();
             this.timer_Progress = new System.Windows.Forms.Timer(this.components);
+            this.imageList_Icons = new System.Windows.Forms.ImageList(this.components);
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thanksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.metadataInjectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resumeConversiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -126,18 +137,30 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addVideoToolStripMenuItem,
+            this.removeVideoToolStripMenuItem,
+            this.startConversionToolStripMenuItem,
+            this.pauseConversionToolStripMenuItem,
+            this.resumeConversiToolStripMenuItem,
+            this.stopConversionToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.metadataInjectorToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.settingsToolStripMenuItem.Text = "Tools";
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem,
+            this.thanksToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -180,58 +203,73 @@
             // btn_Stop
             // 
             this.btn_Stop.Enabled = false;
+            this.btn_Stop.ImageKey = "StopConversion.png";
+            this.btn_Stop.ImageList = this.imageList_Icons;
             this.btn_Stop.Location = new System.Drawing.Point(572, 2);
             this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(136, 103);
             this.btn_Stop.TabIndex = 5;
             this.btn_Stop.Text = "Stop";
+            this.btn_Stop.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // btn_Pause
             // 
             this.btn_Pause.Enabled = false;
+            this.btn_Pause.ImageKey = "Pause.png";
+            this.btn_Pause.ImageList = this.imageList_Icons;
             this.btn_Pause.Location = new System.Drawing.Point(429, 2);
             this.btn_Pause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Pause.Name = "btn_Pause";
             this.btn_Pause.Size = new System.Drawing.Size(136, 103);
             this.btn_Pause.TabIndex = 4;
             this.btn_Pause.Text = "Pause";
+            this.btn_Pause.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Pause.UseVisualStyleBackColor = true;
             this.btn_Pause.Click += new System.EventHandler(this.btn_Pause_Click);
             // 
             // btn_Remove
             // 
+            this.btn_Remove.ImageKey = "Remove.png";
+            this.btn_Remove.ImageList = this.imageList_Icons;
             this.btn_Remove.Location = new System.Drawing.Point(147, 2);
             this.btn_Remove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Remove.Name = "btn_Remove";
             this.btn_Remove.Size = new System.Drawing.Size(136, 103);
             this.btn_Remove.TabIndex = 2;
             this.btn_Remove.Text = "Remove Video";
+            this.btn_Remove.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Remove.UseVisualStyleBackColor = true;
             this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // btn_Start
             // 
             this.btn_Start.Enabled = false;
+            this.btn_Start.ImageKey = "StartConversion.png";
+            this.btn_Start.ImageList = this.imageList_Icons;
             this.btn_Start.Location = new System.Drawing.Point(287, 2);
             this.btn_Start.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(136, 103);
             this.btn_Start.TabIndex = 1;
             this.btn_Start.Text = "Start Conversion";
+            this.btn_Start.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Start.UseVisualStyleBackColor = true;
             this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
             // 
             // btn_Add
             // 
+            this.btn_Add.ImageIndex = 0;
+            this.btn_Add.ImageList = this.imageList_Icons;
             this.btn_Add.Location = new System.Drawing.Point(4, 2);
             this.btn_Add.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(136, 103);
             this.btn_Add.TabIndex = 0;
             this.btn_Add.Text = "Add Video";
+            this.btn_Add.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -758,6 +796,72 @@
             this.timer_Progress.Interval = 2000;
             this.timer_Progress.Tick += new System.EventHandler(this.timer_Progress_Tick);
             // 
+            // imageList_Icons
+            // 
+            this.imageList_Icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_Icons.ImageStream")));
+            this.imageList_Icons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList_Icons.Images.SetKeyName(0, "Add.png");
+            this.imageList_Icons.Images.SetKeyName(1, "Pause.png");
+            this.imageList_Icons.Images.SetKeyName(2, "Remove.png");
+            this.imageList_Icons.Images.SetKeyName(3, "Resume.png");
+            this.imageList_Icons.Images.SetKeyName(4, "Start.png");
+            this.imageList_Icons.Images.SetKeyName(5, "StartConversion.png");
+            this.imageList_Icons.Images.SetKeyName(6, "StopConversion.png");
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // thanksToolStripMenuItem
+            // 
+            this.thanksToolStripMenuItem.Name = "thanksToolStripMenuItem";
+            this.thanksToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.thanksToolStripMenuItem.Text = "Thanks";
+            // 
+            // metadataInjectorToolStripMenuItem
+            // 
+            this.metadataInjectorToolStripMenuItem.Name = "metadataInjectorToolStripMenuItem";
+            this.metadataInjectorToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.metadataInjectorToolStripMenuItem.Text = "Metadata Injector";
+            // 
+            // addVideoToolStripMenuItem
+            // 
+            this.addVideoToolStripMenuItem.Name = "addVideoToolStripMenuItem";
+            this.addVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.addVideoToolStripMenuItem.Text = "Add Video";
+            // 
+            // removeVideoToolStripMenuItem
+            // 
+            this.removeVideoToolStripMenuItem.Name = "removeVideoToolStripMenuItem";
+            this.removeVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.removeVideoToolStripMenuItem.Text = "Remove Video";
+            // 
+            // startConversionToolStripMenuItem
+            // 
+            this.startConversionToolStripMenuItem.Name = "startConversionToolStripMenuItem";
+            this.startConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.startConversionToolStripMenuItem.Text = "Start Conversion";
+            // 
+            // pauseConversionToolStripMenuItem
+            // 
+            this.pauseConversionToolStripMenuItem.Name = "pauseConversionToolStripMenuItem";
+            this.pauseConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.pauseConversionToolStripMenuItem.Text = "Pause Conversion";
+            // 
+            // resumeConversiToolStripMenuItem
+            // 
+            this.resumeConversiToolStripMenuItem.Name = "resumeConversiToolStripMenuItem";
+            this.resumeConversiToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.resumeConversiToolStripMenuItem.Text = "Resume Conversion";
+            // 
+            // stopConversionToolStripMenuItem
+            // 
+            this.stopConversionToolStripMenuItem.Name = "stopConversionToolStripMenuItem";
+            this.stopConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.stopConversionToolStripMenuItem.Text = "Stop Conversion";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -866,6 +970,16 @@
         private System.Windows.Forms.Button btn_OutDir;
         private System.Windows.Forms.TextBox textBox_OutDir;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ImageList imageList_Icons;
+        private System.Windows.Forms.ToolStripMenuItem addVideoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeVideoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startConversionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pauseConversionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resumeConversiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopConversionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem metadataInjectorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem thanksToolStripMenuItem;
     }
 }
 
