@@ -32,11 +32,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resumeConversiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.metadataInjectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thanksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btn_Stop = new System.Windows.Forms.Button();
+            this.imageList_Icons = new System.Windows.Forms.ImageList(this.components);
             this.btn_Pause = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Start = new System.Windows.Forms.Button();
@@ -58,7 +68,7 @@
             this.radioButton_Intel = new System.Windows.Forms.RadioButton();
             this.radioButton_CUDA = new System.Windows.Forms.RadioButton();
             this.groupBox_Panorama = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_pano = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox_video = new System.Windows.Forms.GroupBox();
             this.checkBox_fixed = new System.Windows.Forms.CheckBox();
@@ -86,16 +96,6 @@
             this.backgroundWorker_AddTask = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog_PickVideo = new System.Windows.Forms.OpenFileDialog();
             this.timer_Progress = new System.Windows.Forms.Timer(this.components);
-            this.imageList_Icons = new System.Windows.Forms.ImageList(this.components);
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thanksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.metadataInjectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pauseConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resumeConversiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -148,6 +148,42 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // addVideoToolStripMenuItem
+            // 
+            this.addVideoToolStripMenuItem.Name = "addVideoToolStripMenuItem";
+            this.addVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.addVideoToolStripMenuItem.Text = "Add Video";
+            // 
+            // removeVideoToolStripMenuItem
+            // 
+            this.removeVideoToolStripMenuItem.Name = "removeVideoToolStripMenuItem";
+            this.removeVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.removeVideoToolStripMenuItem.Text = "Remove Video";
+            // 
+            // startConversionToolStripMenuItem
+            // 
+            this.startConversionToolStripMenuItem.Name = "startConversionToolStripMenuItem";
+            this.startConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.startConversionToolStripMenuItem.Text = "Start Conversion";
+            // 
+            // pauseConversionToolStripMenuItem
+            // 
+            this.pauseConversionToolStripMenuItem.Name = "pauseConversionToolStripMenuItem";
+            this.pauseConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.pauseConversionToolStripMenuItem.Text = "Pause Conversion";
+            // 
+            // resumeConversiToolStripMenuItem
+            // 
+            this.resumeConversiToolStripMenuItem.Name = "resumeConversiToolStripMenuItem";
+            this.resumeConversiToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.resumeConversiToolStripMenuItem.Text = "Resume Conversion";
+            // 
+            // stopConversionToolStripMenuItem
+            // 
+            this.stopConversionToolStripMenuItem.Name = "stopConversionToolStripMenuItem";
+            this.stopConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.stopConversionToolStripMenuItem.Text = "Stop Conversion";
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -155,6 +191,12 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
             this.settingsToolStripMenuItem.Text = "Tools";
+            // 
+            // metadataInjectorToolStripMenuItem
+            // 
+            this.metadataInjectorToolStripMenuItem.Name = "metadataInjectorToolStripMenuItem";
+            this.metadataInjectorToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.metadataInjectorToolStripMenuItem.Text = "Metadata Injector";
             // 
             // helpToolStripMenuItem
             // 
@@ -164,6 +206,18 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // thanksToolStripMenuItem
+            // 
+            this.thanksToolStripMenuItem.Name = "thanksToolStripMenuItem";
+            this.thanksToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.thanksToolStripMenuItem.Text = "Thanks";
             // 
             // statusStrip1
             // 
@@ -214,6 +268,18 @@
             this.btn_Stop.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
+            // imageList_Icons
+            // 
+            this.imageList_Icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_Icons.ImageStream")));
+            this.imageList_Icons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList_Icons.Images.SetKeyName(0, "Add.png");
+            this.imageList_Icons.Images.SetKeyName(1, "Pause.png");
+            this.imageList_Icons.Images.SetKeyName(2, "Remove.png");
+            this.imageList_Icons.Images.SetKeyName(3, "Resume.png");
+            this.imageList_Icons.Images.SetKeyName(4, "Start.png");
+            this.imageList_Icons.Images.SetKeyName(5, "StartConversion.png");
+            this.imageList_Icons.Images.SetKeyName(6, "StopConversion.png");
             // 
             // btn_Pause
             // 
@@ -489,7 +555,7 @@
             // 
             this.groupBox_Panorama.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Panorama.Controls.Add(this.comboBox1);
+            this.groupBox_Panorama.Controls.Add(this.comboBox_pano);
             this.groupBox_Panorama.Controls.Add(this.label6);
             this.groupBox_Panorama.Location = new System.Drawing.Point(316, 34);
             this.groupBox_Panorama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -500,20 +566,20 @@
             this.groupBox_Panorama.TabStop = false;
             this.groupBox_Panorama.Text = "Panorama MetaData";
             // 
-            // comboBox1
+            // comboBox_pano
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBox_pano.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_pano.FormattingEnabled = true;
+            this.comboBox_pano.Items.AddRange(new object[] {
             "None",
             "Youtube Spherical Video",
             "Youtube Top-Buttom 3D",
             "Youtube Left-Right 3D"});
-            this.comboBox1.Location = new System.Drawing.Point(19, 53);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(243, 24);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox_pano.Location = new System.Drawing.Point(19, 53);
+            this.comboBox_pano.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_pano.Name = "comboBox_pano";
+            this.comboBox_pano.Size = new System.Drawing.Size(243, 24);
+            this.comboBox_pano.TabIndex = 1;
             // 
             // label6
             // 
@@ -796,72 +862,6 @@
             this.timer_Progress.Interval = 2000;
             this.timer_Progress.Tick += new System.EventHandler(this.timer_Progress_Tick);
             // 
-            // imageList_Icons
-            // 
-            this.imageList_Icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_Icons.ImageStream")));
-            this.imageList_Icons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList_Icons.Images.SetKeyName(0, "Add.png");
-            this.imageList_Icons.Images.SetKeyName(1, "Pause.png");
-            this.imageList_Icons.Images.SetKeyName(2, "Remove.png");
-            this.imageList_Icons.Images.SetKeyName(3, "Resume.png");
-            this.imageList_Icons.Images.SetKeyName(4, "Start.png");
-            this.imageList_Icons.Images.SetKeyName(5, "StartConversion.png");
-            this.imageList_Icons.Images.SetKeyName(6, "StopConversion.png");
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // thanksToolStripMenuItem
-            // 
-            this.thanksToolStripMenuItem.Name = "thanksToolStripMenuItem";
-            this.thanksToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.thanksToolStripMenuItem.Text = "Thanks";
-            // 
-            // metadataInjectorToolStripMenuItem
-            // 
-            this.metadataInjectorToolStripMenuItem.Name = "metadataInjectorToolStripMenuItem";
-            this.metadataInjectorToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.metadataInjectorToolStripMenuItem.Text = "Metadata Injector";
-            // 
-            // addVideoToolStripMenuItem
-            // 
-            this.addVideoToolStripMenuItem.Name = "addVideoToolStripMenuItem";
-            this.addVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.addVideoToolStripMenuItem.Text = "Add Video";
-            // 
-            // removeVideoToolStripMenuItem
-            // 
-            this.removeVideoToolStripMenuItem.Name = "removeVideoToolStripMenuItem";
-            this.removeVideoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.removeVideoToolStripMenuItem.Text = "Remove Video";
-            // 
-            // startConversionToolStripMenuItem
-            // 
-            this.startConversionToolStripMenuItem.Name = "startConversionToolStripMenuItem";
-            this.startConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.startConversionToolStripMenuItem.Text = "Start Conversion";
-            // 
-            // pauseConversionToolStripMenuItem
-            // 
-            this.pauseConversionToolStripMenuItem.Name = "pauseConversionToolStripMenuItem";
-            this.pauseConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.pauseConversionToolStripMenuItem.Text = "Pause Conversion";
-            // 
-            // resumeConversiToolStripMenuItem
-            // 
-            this.resumeConversiToolStripMenuItem.Name = "resumeConversiToolStripMenuItem";
-            this.resumeConversiToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.resumeConversiToolStripMenuItem.Text = "Resume Conversion";
-            // 
-            // stopConversionToolStripMenuItem
-            // 
-            this.stopConversionToolStripMenuItem.Name = "stopConversionToolStripMenuItem";
-            this.stopConversionToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.stopConversionToolStripMenuItem.Text = "Stop Conversion";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -932,7 +932,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_width;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox_Panorama;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_pano;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBox_fixed;
         private System.Windows.Forms.Button btn_Remove;

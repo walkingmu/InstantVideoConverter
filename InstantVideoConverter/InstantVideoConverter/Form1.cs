@@ -182,6 +182,7 @@ namespace InstantVideoConverter
                 this.listView_Tasks.Items.Add(TaskToLVI(vt));
             }
             this.listView_Tasks.Refresh();
+            RefreshButtomState();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -271,6 +272,14 @@ namespace InstantVideoConverter
 
         private void btn_Remove_Click(object sender, EventArgs e)
         {
+            if(this.listView_Tasks.SelectedItems != null && listView_Tasks.SelectedItems.Count>0)
+            {
+                if (!Tasks.Remove(listView_Tasks.SelectedItems[0].Tag as VideoConvertTask))
+                {
+                    throw new KeyNotFoundException();
+                }
+                this.listView_Tasks.Items.Remove(this.listView_Tasks.SelectedItems[0]);
+            }
             RefreshButtomState();
         }
 
