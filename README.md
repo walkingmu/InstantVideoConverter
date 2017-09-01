@@ -1,5 +1,6 @@
 # InstantVideoConverter
-Project Owner: Yijia Xu
+Project Owner and Developer: Yijia Xu
+Project license: MIT open source license
 
 # Project Description:
 The end goal of this project is to create a hardware accelerated video converter with support up to 4K video. This project will also support embedding Metadata for video taken by spherical cameras.
