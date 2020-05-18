@@ -1,6 +1,4 @@
 # InstantVideoConverter
-Project Owner and Developer: Yijia Xu
-
 Project license: MIT
 
 # Project Description:
